@@ -1,0 +1,44 @@
+#!/bin/bash
+
+initialisation()
+{
+    liste=( '$HOME' )
+    cd ~/
+    for i in *
+    do
+	    if [ -d $i ]; then
+	        liste=( "${liste[*]}" "$i" )
+	    fi
+    done
+    if [ ! -d ~/trie ]; then
+	    mkdir ~/trie
+    fi
+    echo ${liste[@]}
+}
+initialisation
+
+#le dictionnaire est composé de lignes, chaque ligne ressemble à ça : nom_dossier,extension1,extension2...
+
+parcours_dico(){            #cette fonction classifie le dossier pour chaque ligne
+    lignes=`wc -l classement.txt` #on récupère le nombre de lignes
+    for i in `seq 1 $lignes`        #et on classe (fonction classify) pour chaque ligne du dico
+    do
+        listeExt= #faut trouver un moyen de récup chaque ligne du dico avec chaque extension séparéeséparés
+        classify_cat 
+}
+
+classify_cat()
+{
+    for file in * 
+    do 
+        extension= #générer extension
+	    if [[ " ${listeExt[@]} " =~ " ${extension} " ]]; then #array sera la liste des extensions courantes
+            if [ ! -d "répertoire"/${listeExt[0]} ]; then
+                mkdir "répertoire"/${listeExt[0]}
+            fi
+            mv file ${array[0]}/
+        fi
+    done
+}
+
+# on peut faire sh s.sh param
