@@ -36,7 +36,7 @@ classify_cat()
             if [ ! -d "répertoire"/${listeExt[0]} ]; then
                 mkdir "répertoire"/${listeExt[0]}
             fi
-            mv file ${array[0]}/
+            mv file ${listeExt[0]}/
         fi
     done
 }
