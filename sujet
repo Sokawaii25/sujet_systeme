@@ -23,7 +23,11 @@ parcours_dico(){            #cette fonction classifie le dossier pour chaque lig
 	lignes=`wc -l classement.txt` #on récupère le nombre de lignes
 	for i in `seq 1 $lignes`        #et on classe (fonction classify) pour chaque ligne du dico
 	do
-        	listeExt= #faut trouver un moyen de récup chaque ligne du dico avec chaque extension séparée (for mot in chaine; do), utiliser ' ' comme séparateur
+		ligne=`cat classement.txt | awk -v i=$i 'NR == i {print;}'`
+        	listeExt=()
+		for mot in ligne;
+			listeExt[${#listeExt[*]}]=$mot
+		done
         	classify_cat
 	done
 }
@@ -33,6 +37,7 @@ classify_cat()
 	for file in * 
 	do 
 		#tester chaque extension de la catégorie sur la commande `ls | grep -e extension`
+		extension=`echo $file | sed 's/.*\.//g'`			
 	        if [[ " ${listeExt[@]} " =~ " ${extension} " ]]; then #array sera la liste des extensions courantes
                 	if [ ! -d "répertoire"/${listeExt[0]} ]; then
                 		mkdir "répertoire"/${listeExt[0]}
