@@ -32,7 +32,7 @@ classify_cat()
 {
 	for file in * 
 	do 
-		extension= #générer extension
+		#tester chaque extension de la catégorie sur la commande `ls | grep -e extension`
 	        if [[ " ${listeExt[@]} " =~ " ${extension} " ]]; then #array sera la liste des extensions courantes
                 	if [ ! -d "répertoire"/${listeExt[0]} ]; then
                 		mkdir "répertoire"/${listeExt[0]}
