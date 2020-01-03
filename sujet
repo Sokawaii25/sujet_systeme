@@ -1,21 +1,23 @@
 #!/bin/bash
 
-initialisation()
+liste=()
+ 
+parcours_dossiers()
 {
-    liste=( '$HOME' )
-    cd ~/
-    for i in *
-    do
-	    if [ -d $i ]; then
-	        liste=( "${liste[*]}" "$i" )
-	    fi
-    done
-    if [ ! -d ~/trie ]; then
-	    mkdir ~/trie
-    fi
-    echo ${liste[@]}
+	for i in *
+	do
+		if [ -d $i ]; then
+	        	liste=( "${liste[*]}" "$i" )
+	    	fi
+    	done
+	test=`pwd`
+	for dossier in liste
+	do
+		cd $test/$dossier
+		parcours_dico
+		unset liste[0]
+	done
 }
-initialisation
 
 #le dictionnaire est composé de lignes, chaque ligne ressemble à ça : nom_dossier,extension1,extension2...
 
@@ -39,8 +41,8 @@ classify_cat()
 		#tester chaque extension de la catégorie sur la commande `ls | grep -e extension`
 		extension=`echo $file | sed 's/.*\.//g'`			
 	        if [[ " ${listeExt[@]} " =~ " ${extension} " ]]; then #array sera la liste des extensions courantes
-                	if [ ! -d "répertoire"/${listeExt[0]} ]; then
-                		mkdir "répertoire"/${listeExt[0]}
+                	if [ ! -d $chemin/${listeExt[0]} ]; then
+                		mkdir $chemin/${listeExt[0]}
             		fi
                 	mv file ${listeExt[0]}/
         	fi
