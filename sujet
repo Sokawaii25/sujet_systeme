@@ -7,7 +7,7 @@ parcours_dossiers()
 	for i in *
 	do
 		if [ -d $i ]; then
-	        	liste=( "${liste[*]}" "$i" )
+	        	liste=( "${liste[*]}" '$i' )
 	    	fi
     	done
 	test=`pwd`
