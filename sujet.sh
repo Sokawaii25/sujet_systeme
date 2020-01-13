@@ -61,7 +61,20 @@ function tri_contenu()
        	    for mot in $ligne2; do
 		listeMots[${#listeMots[*]}]=$mot
        	    done
-       	    
+       	    #partie tri par contenu
+	    for file2 in *; do
+	    	extension2=`echo $file | sed 's/.*\.//g'`
+	    	if [ $extension2="txt" ]; then
+	    		texte=`cat $file`
+			for mot in texte; do
+				if [[ " ${listeMots[@]} " =~ " ${mot} " ]]; then #array sera la liste des extensions courantes
+                			if [ ! -d ./${listeMots[0]} ]; then
+                				mkdir ./${listeMots[0]}
+            				fi
+                			mv $file ./${listeMots[0]}/
+        			fi
+			done
+		fi
 	done
     fi
 }
